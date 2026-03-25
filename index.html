@@ -82,9 +82,10 @@
 
         .btn-start:hover { transform: translateY(2px); box-shadow: 0 2px 0 #600000; }
 
+        /* ИЗМЕНЕНИЕ: На десктопе 2 колонки */
         .plan-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-top: 40px;
         }
@@ -106,7 +107,7 @@
             border-radius: 10px;
             margin-bottom: 15px;
             background: #fdfdfd;
-            cursor: zoom-in; /* Курсор при наведении */
+            cursor: zoom-in;
             transition: transform 0.3s;
         }
 
@@ -117,14 +118,13 @@
         h3 { color: var(--accent-color); margin-top: 10px; }
         p { font-size: 0.95em; color: var(--text-main); line-height: 1.4; }
 
-        /* Стили для модального окна просмотра картинки */
         #img-modal {
             display: none;
             position: fixed;
             z-index: 9999;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: #ffffff; /* Белый фон */
+            background: #ffffff;
             justify-content: center;
             align-items: center;
             cursor: zoom-out;
@@ -134,6 +134,16 @@
             max-width: 90%;
             max-height: 90%;
             border-radius: 10px;
+        }
+
+        /* АДАПТИВНОСТЬ: На мобильных 1 колонка и подстройка элементов */
+        @media (max-width: 768px) {
+            .plan-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 { font-size: 1.8em; }
+            .lesson-container { padding: 20px 15px; }
+            iframe { width: 100%; height: auto; aspect-ratio: 485/402; }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
