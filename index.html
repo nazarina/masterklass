@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мастер-класс: Твоя игра на Scratch</title>
+    <style>
+        :root {
+            --soft-pink: #fff0f3;
+            --soft-purple: #f3f0ff;
+            --accent-color: #008080;
+            --deep-accent: #800000;
+            --text-main: #4a4a4a;
+            --white: #ffffff;
+            --button-grad: linear-gradient(to top, #800000 0%, #d63031 100%);
+        }
+
+        body {
+            font-family: 'Comfortaa', sans-serif;
+            background-color: #e0f7fa;
+            background-image: radial-gradient(#ffffff 15%, transparent 16%);
+            background-size: 30px 30px;
+            color: var(--text-main);
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .lesson-container {
+            max-width: 900px; width: 95%;
+            margin: 20px; padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .banner {
+            text-align: center;
+            padding: 20px;
+            background: var(--soft-purple);
+            border-radius: 30px;
+            border: 4px dashed var(--accent-color);
+            margin-bottom: 30px;
+        }
+
+        h1 { color: var(--deep-accent); font-size: 2.2em; margin: 0; }
+        .glow-text { color: #00bcd4; font-weight: bold; font-size: 1.2em; }
+
+        .algorithm-box {
+            background: #fff9c4;
+            padding: 20px;
+            border-radius: 20px;
+            border-left: 8px solid #fbc02d;
+            margin-bottom: 30px;
+            display: flex; align-items: center; gap: 15px;
+        }
+
+        .game-zone {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        iframe {
+            border: 10px solid var(--white);
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            max-width: 100%;
+        }
+
+        .btn-start {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 18px 40px;
+            background: var(--button-grad);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 4px 0 #600000;
+            transition: 0.2s;
+        }
+
+        .btn-start:hover { transform: translateY(2px); box-shadow: 0 2px 0 #600000; }
+
+        .plan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background: #fdfdfd;
+            cursor: zoom-in; /* Курсор при наведении */
+            transition: transform 0.3s;
+        }
+
+        .card img:hover {
+            transform: scale(1.03);
+        }
+
+        h3 { color: var(--accent-color); margin-top: 10px; }
+        p { font-size: 0.95em; color: var(--text-main); line-height: 1.4; }
+
+        /* Стили для модального окна просмотра картинки */
+        #img-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #ffffff; /* Белый фон */
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        #img-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="lesson-container">
+    
+    <div class="banner">
+        <h1>Мастер-класс</h1>
+        <div class="glow-text">Мини-игра на Scratch 🐈🚀</div>
+    </div>
+
+    <div class="algorithm-box" style="flex-direction: column; align-items: flex-start;">
+        <h3 style="margin-top: 0; color: #fbc02d;">🧩 Алгоритм — это как инструкция к LEGO!</h3>
+        <p style="margin: 5px 0 15px 0;">Чтобы собрать модель из конструктора, ты ставишь детали по порядку. В коде всё так же:</p>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; width: 100%;">
+            <div style="background: #fff; padding: 10px 15px; border-radius: 12px; border: 2px solid #4c97ff; flex: 1; min-width: 150px;">
+                <b style="color: #4c97ff;">1. Шаг за шагом</b><br>
+                Сначала одна деталь, потом другая.
+            </div>
+            <div style="background: #fff; padding: 10px 15px; border-radius: 12px; border: 2px solid #ffab19; flex: 1; min-width: 150px;">
+                <b style="color: #ffab19;">2. Четкий план</b><br>
+                Компьютер просто выполняет твои команды.
+            </div>
+            <div style="background: #fff; padding: 10px 15px; border-radius: 12px; border: 2px solid #9966ff; flex: 1; min-width: 150px;">
+                <b style="color: #9966ff;">3. Понятный результат</b><br>
+                Сложил детали верно — игра заработала!
+            </div>
+        </div>
+    </div>
+
+    <div class="game-zone">
+        <p>👇 <b>Посмотри, какую игру мы сейчас создадим:</b></p>
+        <iframe src="https://scratch.mit.edu/projects/1269667212/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
+        <br>
+        <a href="https://scratch.mit.edu/projects/1269667212" class="btn-start" target="_blank">Открыть заготовку 🚀</a>
+    </div>
+
+    <h2 style="text-align: center; color: var(--deep-accent);">Твой план действий:</h2>
+
+    <div class="plan-grid">
+        
+        <div class="card">
+            <img src="https://github.com/nazarina/masterklass/blob/main/%D0%91%D0%B5%D0%B7%20%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20(3).png?raw=true" alt="Летучая мышь">
+            <h3>1. Оживляем Кота</h3>
+            <p>Пишем алгоритм ходьбы. Учим героя слушаться твоих команд.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://github.com/nazarina/masterklass/blob/main/%D0%91%D0%B5%D0%B7%20%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20(4).png?raw=true" alt="Движение">
+            <h3>2. Летучая мышь</h3>
+            <p>Добавляем нашего главного злодея. Сделаем её не игровой, но очень важной!</p>
+        </div>
+
+        <div class="card">
+            <img src="https://github.com/nazarina/masterklass/blob/main/%D0%91%D0%B5%D0%B7%20%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20(8).png?raw=true" alt="Правила">
+            <h3>3. Полет ракеты</h3>
+            <p>Создаем анимацию! Ракета должна лететь красиво и вовремя менять костюм.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://github.com/nazarina/masterklass/blob/main/%D0%91%D0%B5%D0%B7%20%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20(7).png?raw=true" alt="Анимация">
+            <h3>4. Главные правила</h3>
+            <p>Настраиваем касания. Что будет, если Кот столкнется с ракетой? Решать тебе!</p>
+        </div>
+
+        <div class="card">
+            <img src="https://github.com/nazarina/masterklass/blob/main/%D0%91%D0%B5%D0%B7%20%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20(5).png?raw=true">
+            <h3>5. Секретный уровень</h3>
+            <p>Доработай игру по своему усмотрению</p>
+        </div>
+
+    </div>
+
+    <p style="text-align: center; margin-top: 50px; font-weight: bold; color: var(--accent-color);">
+        ✨ Готов? Тогда жми на кнопку сверху и начинай творить!
+    </p>
+
+</div>
+
+<div id="img-modal">
+    <img src="" id="modal-img">
+</div>
+
+<script>
+    const modal = document.getElementById('img-modal');
+    const modalImg = document.getElementById('modal-img');
+    const cardsImages = document.querySelectorAll('.card img');
+
+    cardsImages.forEach(img => {
+        img.onclick = () => {
+            modal.style.display = "flex";
+            modalImg.src = img.src;
+        }
+    });
+
+    modal.onclick = () => {
+        modal.style.display = "none";
+    }
+</script>
+
+</body>
+</html>
